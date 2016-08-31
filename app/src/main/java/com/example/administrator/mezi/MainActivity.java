@@ -14,6 +14,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initView();
         initData();
+        getResponseData();
     }
 
     private void initView() {
@@ -67,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                         mianAdapter.addItem(meiZis);
                         srl_main.setRefreshing(false);
                     }
-                },2000);
+                }, 2000);
 
             }
         });
@@ -86,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             mianAdapter.addMoreItem(meiZis);
                         }
-                    },0);
+                    }, 0);
                 }
                 Log.i("zmin....lastPositions.", "...." + lastPositions[0] + "...." + lastPositions[1]);
             }
@@ -103,5 +109,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         handler.removeCallbacksAndMessages(null);
+    }
+
+    public List<MeiZi> getResponseData() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://gank.io/")
+                .build();
+        ApiService apiService = retrofit.create(ApiService.class);
+        Call<Object> call = apiService.getDataList(1);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Response<Object> response, Retrofit retrofit) {
+                Log.i("zmin......", "....成功获取数据...");
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.i("zmin......", "....获取数据失败...");
+            }
+
+        });
+
+
+        return null;
     }
 }
