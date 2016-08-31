@@ -56,4 +56,17 @@ public class MianAdapter extends RecyclerView.Adapter<MianAdapter.MainViewHolder
             iv_mian_item_meizi = (ImageView) itemView.findViewById(R.id.iv_mian_item_meizi);
         }
     }
+
+    /** 添加更多数据 */
+    public void addMoreItem(List<MeiZi> list) {
+        data_list.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    /** 添加数据 */
+    public void addItem(List<MeiZi> meiZis) {
+        data_list.clear();
+        addMoreItem(meiZis);
+    }
+
 }

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MeZi.iml" filepath="$PROJECT_DIR$/MeZi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MeiZi.iml" filepath="$PROJECT_DIR$/MeiZi.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
