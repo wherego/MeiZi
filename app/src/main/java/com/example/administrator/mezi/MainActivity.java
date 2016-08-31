@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }, 0);
                 }
+
                 Log.i("zmin....lastPositions.", "...." + lastPositions[0] + "...." + lastPositions[1]);
             }
 
