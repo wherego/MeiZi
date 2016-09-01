@@ -14,10 +14,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -112,26 +113,39 @@ public class MainActivity extends AppCompatActivity {
         handler.removeCallbacksAndMessages(null);
     }
 
-    public List<MeiZi> getResponseData() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://gank.io/")
-                .build();
+    public void getResponseData() {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://gank.io/api/data/").addConverterFactory(GsonConverterFactory.create()).build();
         ApiService apiService = retrofit.create(ApiService.class);
-        Call<Object> call = apiService.getDataList(1);
-        call.enqueue(new Callback<Object>() {
+//        Call<MeizhiData> call = apiService.getDataList("1");
+//        call.enqueue(new Callback<MeizhiData>() {
+//            @Override
+//            public void onResponse(Call<MeizhiData> call, Response<MeizhiData> response) {
+//                MeizhiData body = response.body();
+//                List<Meizhis> results = body.results;
+//                Log.i("zmin......", "....成功获取数据..."+results);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<MeizhiData> call, Throwable t) {
+//                Log.i("zmin......", "....成功获取数据...");
+//            }
+//        });
+        Call<Json> call = apiService.getDataList("1");
+        call.enqueue(new Callback<Json>() {
             @Override
-            public void onResponse(Response<Object> response, Retrofit retrofit) {
+            public void onResponse(Call<Json> call, Response<Json> response) {
+//                MeizhiData body = response.body();
+//                List<Meizhis> results = body.results;
+                Json body = response.body();
+                List<Json.ResultsBean> results = body.results;
+                Log.i("zmin......", "....成功获取数据..." + results);
+            }
+
+            @Override
+            public void onFailure(Call<Json> call, Throwable t) {
                 Log.i("zmin......", "....成功获取数据...");
             }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.i("zmin......", "....获取数据失败...");
-            }
-
         });
 
-
-        return null;
     }
 }

@@ -1,9 +1,9 @@
 package com.example.administrator.mezi;
 
 
-import retrofit.Call;
-import retrofit.http.GET;
-import retrofit.http.Path;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 /**
  * Description:
@@ -12,6 +12,8 @@ import retrofit.http.Path;
  * @date: 2016/8/31 21:24
  */
 public interface ApiService {
-    @GET("/data/福利/" + 10 + "/{page}")
-    Call<Object> getDataList(@Path("page") int page);
+    @GET("福利/" + 10 + "/{page}")
+    Call<Json> getDataList(@Path("page") String page);
+
+
 }
