@@ -1,3 +1,5 @@
+### 医栈项目忽略文件 template
+/build.gradle
 *.iml
 .gradle
 /local.properties
@@ -6,5 +8,4 @@
 .DS_Store
 /build
 /captures
-
-/.idea/
+/.idea
