@@ -1,4 +1,4 @@
-package com.example.administrator.mezi;
+package com.example.administrator.mezi.uis.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.administrator.mezi.R;
+import com.example.administrator.mezi.mvp.models.MeiZi;
 
 import java.util.List;
 
@@ -36,7 +39,7 @@ public class MianAdapter extends RecyclerView.Adapter<MianAdapter.MainViewHolder
     @Override
     public void onBindViewHolder(MainViewHolder holder, int position) {
         MeiZi meiZi = data_list.get(position);
-        holder.tv_mian_item_describe.setText(meiZi.getSummary());
+        holder.tv_mian_item_describe.setText(meiZi.getDesc());
         holder.iv_mian_item_meizi.setBackgroundColor(Color.GREEN);
     }
 

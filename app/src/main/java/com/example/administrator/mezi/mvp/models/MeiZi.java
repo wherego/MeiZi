@@ -1,25 +1,34 @@
-package com.example.administrator.mezi;
-
-import java.util.List;
+package com.example.administrator.mezi.mvp.models;
 
 /**
- * Description:
+ * Description: $content
  *
  * @author: zhangmin
- * @date: 2016/9/1 21:47
+ * @date: 2016/09/02 14:23
  */
+public class MeiZi {
 
+    /**
+     * _id : 57c6dcd0421aa9125fa3edc5
+     * createdAt : 2016-08-31T21:34:08.961Z
+     * desc : 9-1
+     * publishedAt : 2016-09-01T11:31:19.288Z
+     * source : chrome
+     * type : 福利
+     * url : http://ww3.sinaimg.cn/large/610dc034jw1f7d97id9mbj20u00u0q4g.jpg
+     * used : true
+     * who : daimajia
+     */
 
-public class ResultsBean {
-    public String _id;
-    public String createdAt;
-    public String desc;
-    public String publishedAt;
-    public String source;
-    public String type;
-    public String url;
-    public boolean used;
-    public String who;
+    private String _id;
+    private String createdAt;
+    private String desc;
+    private String publishedAt;
+    private String source;
+    private String type;
+    private String url;
+    private boolean used;
+    private String who;
 
     public String get_id() {
         return _id;
@@ -93,4 +102,3 @@ public class ResultsBean {
         this.who = who;
     }
 }
-

@@ -1,4 +1,4 @@
-package com.example.administrator.mezi;
+package com.example.administrator.mezi.uis.activities;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 
+import com.example.administrator.mezi.R;
+import com.example.administrator.mezi.mvp.models.MeiZi;
+import com.example.administrator.mezi.uis.adapters.MianAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +22,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -47,19 +50,18 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initView();
         initData();
-        getResponseData();
     }
 
     private void initView() {
     }
 
     private void initData() {
-        data_list = Datas.getData(0);
+        data_list = new ArrayList<>();
         mianAdapter = new MianAdapter(this, data_list);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         rv_main.setLayoutManager(staggeredGridLayoutManager);
         rv_main.setAdapter(mianAdapter);
-        addListener();
+       // addListener();
     }
 
     private void addListener() {
@@ -114,38 +116,46 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getResponseData() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://gank.io/api/data/").addConverterFactory(GsonConverterFactory.create()).build();
-        ApiService apiService = retrofit.create(ApiService.class);
-//        Call<MeizhiData> call = apiService.getDataList("1");
-//        call.enqueue(new Callback<MeizhiData>() {
-//            @Override
-//            public void onResponse(Call<MeizhiData> call, Response<MeizhiData> response) {
-//                MeizhiData body = response.body();
-//                List<Meizhis> results = body.results;
-//                Log.i("zmin......", "....成功获取数据..."+results);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<MeizhiData> call, Throwable t) {
-//                Log.i("zmin......", "....成功获取数据...");
-//            }
-//        });
-        Call<Json> call = apiService.getDataList("1");
-        call.enqueue(new Callback<Json>() {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://gank.io/api/data/").build();
+        ApiService.GetMeiziApi getMeiziApi = retrofit.create(ApiService.GetMeiziApi.class);
+        Call<MainMeiziData> call = getMeiziApi.getDataList("1");
+        call.enqueue(new Callback<MainMeiziData>() {
             @Override
-            public void onResponse(Call<Json> call, Response<Json> response) {
-//                MeizhiData body = response.body();
-//                List<Meizhis> results = body.results;
-                Json body = response.body();
-                List<Json.ResultsBean> results = body.results;
+            public void onResponse(Call<MainMeiziData> call, Response<MainMeiziData> response) {
+                MainMeiziData json = response.body();
+                List<MainMeiziData.ResultsBean> results = json.getResults();
                 Log.i("zmin......", "....成功获取数据..." + results);
             }
 
             @Override
-            public void onFailure(Call<Json> call, Throwable t) {
-                Log.i("zmin......", "....成功获取数据...");
+            public void onFailure(Call<MainMeiziData> call, Throwable t) {
+                Log.i("zmin......", "....获取数据失败...");
             }
         });
 
+
     }
+
+
+//    public void getResponseData1() {
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("http://gank.io/api/data/")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        ApiService.GetMeizi1Api getMeiziApi = retrofit.create(ApiService.GetMeizi1Api.class);
+//        Call<Json1> call = getMeiziApi.getDataList("1");
+//        call.enqueue(new Callback<Json1>() {
+//            @Override
+//            public void onResponse(Call<Json1> call, Response<Json1> response) {
+//                Json1 body = response.body();
+//                List<Json1.ResultsBean> results = body.getResults();
+//                Log.i("zmin......", "....成功获取数据..." + results);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Json1> call, Throwable t) {
+//                Log.i("zmin......", "....获取数据失败...");
+//            }
+//        });
+//    }
 }
